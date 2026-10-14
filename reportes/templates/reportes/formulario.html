@@ -1,0 +1,22 @@
+{% extends 'reportes/base.html' %}
+{% block contenido %}
+<h2>{{ titulo }}</h2>
+<form method="post" novalidate>
+{% csrf_token %}
+{% if form.non_field_errors %}
+<div class="alert alert-danger">{{ form.non_field_errors }}</div>
+{% endif %}
+{% for campo in form %}
+<div class="mb-3">
+<label class="form-label">{{ campo.label }}</label>
+{{ campo }}
+{% if campo.errors %}
+<div class="text-danger small">{{ campo.errors|striptags }}</div>
+SENA — ADSO — GA7-220501096-AA2-EV02 Página 9
+{% endif %}
+</div>
+{% endfor %}
+<button type="submit" class="btn btn-success">Guardar</button>
+<a href="{% url 'reportes:lista' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
